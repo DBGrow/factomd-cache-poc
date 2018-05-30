@@ -22,7 +22,7 @@ npm i factomd-cache
 ###  Initialization
 
 ```javascript
-const {FactomdCache} = require('factom-mongodbcache');
+const {FactomdCache} = require('factomd-cache');
 
 //default settings: FactomdAPI on localhost:8088, localhost wallet on port 8089
 var factomdCache = new FactomdCache();
