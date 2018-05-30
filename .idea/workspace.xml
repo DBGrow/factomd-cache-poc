@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b7a99c-02bb-4faf-afaf-1d9178ff0e4c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/u.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FactomdCache.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,70 +23,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.js">
+      <file leaf-file-name="FactomdCache.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FactomdCache.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="863">
-              <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+            <state relative-caret-position="504">
+              <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
               <folding>
-                <element signature="e#266#367#0" />
-                <element signature="e#747#862#0" />
-                <element signature="e#762#860#0" />
-                <element signature="e#1113#1465#0" />
-                <element signature="e#2000#2024#0" />
-                <element signature="e#6851#7628#0" />
-                <element signature="e#7022#7104#0" />
-                <element signature="e#7490#7569#0" />
-                <element signature="e#7663#7752#0" />
-                <element signature="n#!!block;n#cachePendingEntries#0;n#!!block;n#FactomdCache#0" />
-                <element signature="e#7876#12643#0" />
-                <element signature="e#7922#8010#0" />
-                <element signature="e#8221#8300#0" />
-                <element signature="e#8742#8796#0" />
-                <element signature="e#8826#12631#0" />
-                <element signature="e#8853#8940#0" />
-                <element signature="e#9092#9804#0" />
-                <element signature="e#9179#9464#0" />
-                <element signature="e#9871#9970#0" />
-                <element signature="e#10103#12617#0" />
-                <element signature="e#10250#12598#0" />
-                <element signature="e#10285#10396#0" />
-                <element signature="e#10847#11002#0" />
-                <element signature="e#11098#11764#0" />
-                <element signature="e#11232#11703#0" />
-                <element signature="e#11560#11671#0" />
-                <element signature="e#11913#12574#0" />
-                <element signature="e#11952#12201#0" />
-                <element signature="e#12036#12171#0" />
-                <element signature="e#12443#12546#0" />
-                <element signature="n#!!block;n#commitTestEntry#0;n#!!block;n#FactomdCache#0" />
-                <element signature="e#12979#13087#0" />
-                <element signature="e#13180#13200#0" />
-                <element signature="e#13597#14088#0" />
-                <element signature="e#13620#13745#0" />
-                <element signature="e#13784#13943#0" />
-                <element signature="n#!!block;n#getEntries#0;n#!!block;n#FactomdCache#0" />
-                <element signature="e#14204#14258#0" />
-                <element signature="e#14306#14342#0" />
-                <element signature="e#14367#14469#0" />
-                <element signature="e#14486#14570#0" />
-                <element signature="e#13936#14183#0" />
-                <element signature="e#13979#14153#0" />
-                <element signature="e#14146#14178#0" />
-                <element signature="e#14307#14432#0" />
-                <element signature="e#14471#14630#0" />
-                <element signature="e#15450#15575#0" />
-                <element signature="e#16654#16795#0" />
+                <element signature="e#7090#7179#0" />
+                <element signature="e#8216#8270#0" />
+                <element signature="e#8327#8414#0" />
+                <element signature="e#8566#9278#0" />
+                <element signature="e#8653#8938#0" />
+                <element signature="e#9345#9444#0" />
+                <element signature="e#9759#9870#0" />
+                <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+                <element signature="e#13772#13826#0" />
+                <element signature="e#13876#13912#0" />
+                <element signature="e#13937#14039#0" />
+                <element signature="e#14056#14140#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -92,17 +49,26 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+            <state relative-caret-position="396">
+              <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="entry.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/factom/src/entry.js">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1044">
-              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+            <state>
+              <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="504">
+              <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -121,7 +87,6 @@
       <find>into</find>
       <find>latest entry index</find>
       <find>entered</find>
-      <find>console.log</find>
       <find>console.log(</find>
       <find>find</find>
       <find>inserting new ent</find>
@@ -130,6 +95,15 @@
       <find>_</find>
       <find>chain.len</find>
       <find>chain.length</find>
+      <find>new chain</find>
+      <find>testentry</find>
+      <find>setkey</find>
+      <find>latestentryindes</find>
+      <find>cachepending</find>
+      <find>found '+</find>
+      <find>map</find>
+      <find>console.log</find>
+      <find>got</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -140,9 +114,11 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/u.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/test.js" />
+        <option value="$PROJECT_DIR$/FactomdCache.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -163,10 +139,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="130" />
-    <option name="y" value="48" />
+    <option name="x" value="229" />
+    <option name="y" value="-84" />
     <option name="width" value="1853" />
-    <option name="height" value="2112" />
+    <option name="height" value="2132" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -192,7 +168,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test.js" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/factom-scientifictools" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -227,27 +203,28 @@
       <workItem from="1527202925260" duration="603000" />
       <workItem from="1527205445806" duration="2048000" />
       <workItem from="1527470341708" duration="7403000" />
-      <workItem from="1527481825303" duration="12301000" />
+      <workItem from="1527481825303" duration="13914000" />
+      <workItem from="1527506075560" duration="18994000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37421000" />
+    <option name="totallyTimeSpent" value="58028000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="129" y="13" width="3712" height="2148" extended-state="6" />
+    <frame x="130" y="-8" width="3710" height="2168" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1981132" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1557556" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32941777" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3917364" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3294979" />
+      <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -264,7 +241,61 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/FactomdCache.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2448">
+          <caret line="69" column="5" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+          <folding>
+            <element signature="e#7090#7179#0" />
+            <element signature="e#8216#8270#0" />
+            <element signature="e#8327#8414#0" />
+            <element signature="e#8566#9278#0" />
+            <element signature="e#8653#8938#0" />
+            <element signature="e#9345#9444#0" />
+            <element signature="e#9759#9870#0" />
+            <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+            <element signature="e#13772#13826#0" />
+            <element signature="e#13876#13912#0" />
+            <element signature="e#13937#14039#0" />
+            <element signature="e#14056#14140#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/factom/src/entry.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1476">
+          <caret line="41" column="7" lean-forward="true" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1080">
@@ -286,59 +317,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/FactomdCache.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1764">
           <caret line="49" lean-forward="true" selection-start-line="34" selection-end-line="49" />
           <folding>
-            <element signature="e#266#367#0" />
-            <element signature="e#747#862#0" />
-            <element signature="e#762#860#0" />
-            <element signature="e#1113#1465#0" />
-            <element signature="e#2000#2024#0" />
-            <element signature="e#6851#7628#0" />
-            <element signature="e#7022#7104#0" />
-            <element signature="e#7490#7569#0" />
-            <element signature="e#7663#7752#0" />
-            <element signature="n#!!block;n#cachePendingEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#7876#12643#0" />
-            <element signature="e#7922#8010#0" />
-            <element signature="e#8221#8300#0" />
-            <element signature="e#8742#8796#0" />
-            <element signature="e#8826#12631#0" />
-            <element signature="e#8853#8940#0" />
-            <element signature="e#9092#9804#0" />
-            <element signature="e#9179#9464#0" />
-            <element signature="e#9871#9970#0" />
-            <element signature="e#10103#12617#0" />
-            <element signature="e#10250#12598#0" />
-            <element signature="e#10285#10396#0" />
-            <element signature="e#10847#11002#0" />
-            <element signature="e#11098#11764#0" />
-            <element signature="e#11232#11703#0" />
-            <element signature="e#11560#11671#0" />
-            <element signature="e#11913#12574#0" />
-            <element signature="e#11952#12201#0" />
-            <element signature="e#12036#12171#0" />
-            <element signature="e#12443#12546#0" />
-            <element signature="n#!!block;n#commitTestEntry#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#12979#13087#0" />
-            <element signature="e#13180#13200#0" />
-            <element signature="e#13597#14088#0" />
-            <element signature="e#13620#13745#0" />
-            <element signature="e#13784#13943#0" />
-            <element signature="n#!!block;n#getEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#14204#14258#0" />
-            <element signature="e#14306#14342#0" />
-            <element signature="e#14367#14469#0" />
-            <element signature="e#14486#14570#0" />
-            <element signature="e#13936#14183#0" />
-            <element signature="e#13979#14153#0" />
-            <element signature="e#14146#14178#0" />
-            <element signature="e#14307#14432#0" />
-            <element signature="e#14471#14630#0" />
-            <element signature="e#15450#15575#0" />
-            <element signature="e#16654#16795#0" />
+            <element signature="e#7090#7179#0" />
+            <element signature="e#8216#8270#0" />
+            <element signature="e#8327#8414#0" />
+            <element signature="e#8566#9278#0" />
+            <element signature="e#8653#8938#0" />
+            <element signature="e#9345#9444#0" />
+            <element signature="e#9759#9870#0" />
+            <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+            <element signature="e#13772#13826#0" />
+            <element signature="e#13876#13912#0" />
+            <element signature="e#13937#14039#0" />
+            <element signature="e#14056#14140#0" />
           </folding>
         </state>
       </provider>
@@ -357,59 +352,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/FactomdCache.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
           <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
           <folding>
-            <element signature="e#266#367#0" />
-            <element signature="e#747#862#0" />
-            <element signature="e#762#860#0" />
-            <element signature="e#1113#1465#0" />
-            <element signature="e#2000#2024#0" />
-            <element signature="e#6851#7628#0" />
-            <element signature="e#7022#7104#0" />
-            <element signature="e#7490#7569#0" />
-            <element signature="e#7663#7752#0" />
-            <element signature="n#!!block;n#cachePendingEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#7876#12643#0" />
-            <element signature="e#7922#8010#0" />
-            <element signature="e#8221#8300#0" />
-            <element signature="e#8742#8796#0" />
-            <element signature="e#8826#12631#0" />
-            <element signature="e#8853#8940#0" />
-            <element signature="e#9092#9804#0" />
-            <element signature="e#9179#9464#0" />
-            <element signature="e#9871#9970#0" />
-            <element signature="e#10103#12617#0" />
-            <element signature="e#10250#12598#0" />
-            <element signature="e#10285#10396#0" />
-            <element signature="e#10847#11002#0" />
-            <element signature="e#11098#11764#0" />
-            <element signature="e#11232#11703#0" />
-            <element signature="e#11560#11671#0" />
-            <element signature="e#11913#12574#0" />
-            <element signature="e#11952#12201#0" />
-            <element signature="e#12036#12171#0" />
-            <element signature="e#12443#12546#0" />
-            <element signature="n#!!block;n#commitTestEntry#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#12979#13087#0" />
-            <element signature="e#13180#13200#0" />
-            <element signature="e#13597#14088#0" />
-            <element signature="e#13620#13745#0" />
-            <element signature="e#13784#13943#0" />
-            <element signature="n#!!block;n#getEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#14204#14258#0" />
-            <element signature="e#14306#14342#0" />
-            <element signature="e#14367#14469#0" />
-            <element signature="e#14486#14570#0" />
-            <element signature="e#13936#14183#0" />
-            <element signature="e#13979#14153#0" />
-            <element signature="e#14146#14178#0" />
-            <element signature="e#14307#14432#0" />
-            <element signature="e#14471#14630#0" />
-            <element signature="e#15450#15575#0" />
-            <element signature="e#16654#16795#0" />
+            <element signature="e#7090#7179#0" />
+            <element signature="e#8216#8270#0" />
+            <element signature="e#8327#8414#0" />
+            <element signature="e#8566#9278#0" />
+            <element signature="e#8653#8938#0" />
+            <element signature="e#9345#9444#0" />
+            <element signature="e#9759#9870#0" />
+            <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+            <element signature="e#13772#13826#0" />
+            <element signature="e#13876#13912#0" />
+            <element signature="e#13937#14039#0" />
+            <element signature="e#14056#14140#0" />
           </folding>
         </state>
       </provider>
@@ -421,59 +380,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/FactomdCache.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6228">
           <caret line="224" column="9" selection-start-line="219" selection-start-column="3" selection-end-line="224" selection-end-column="9" />
           <folding>
-            <element signature="e#266#367#0" />
-            <element signature="e#747#862#0" />
-            <element signature="e#762#860#0" />
-            <element signature="e#1113#1465#0" />
-            <element signature="e#2000#2024#0" />
-            <element signature="e#6851#7628#0" />
-            <element signature="e#7022#7104#0" />
-            <element signature="e#7490#7569#0" />
-            <element signature="e#7663#7752#0" />
-            <element signature="n#!!block;n#cachePendingEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#7876#12643#0" />
-            <element signature="e#7922#8010#0" />
-            <element signature="e#8221#8300#0" />
-            <element signature="e#8742#8796#0" />
-            <element signature="e#8826#12631#0" />
-            <element signature="e#8853#8940#0" />
-            <element signature="e#9092#9804#0" />
-            <element signature="e#9179#9464#0" />
-            <element signature="e#9871#9970#0" />
-            <element signature="e#10103#12617#0" />
-            <element signature="e#10250#12598#0" />
-            <element signature="e#10285#10396#0" />
-            <element signature="e#10847#11002#0" />
-            <element signature="e#11098#11764#0" />
-            <element signature="e#11232#11703#0" />
-            <element signature="e#11560#11671#0" />
-            <element signature="e#11913#12574#0" />
-            <element signature="e#11952#12201#0" />
-            <element signature="e#12036#12171#0" />
-            <element signature="e#12443#12546#0" />
-            <element signature="n#!!block;n#commitTestEntry#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#12979#13087#0" />
-            <element signature="e#13180#13200#0" />
-            <element signature="e#13597#14088#0" />
-            <element signature="e#13620#13745#0" />
-            <element signature="e#13784#13943#0" />
-            <element signature="n#!!block;n#getEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#14204#14258#0" />
-            <element signature="e#14306#14342#0" />
-            <element signature="e#14367#14469#0" />
-            <element signature="e#14486#14570#0" />
-            <element signature="e#13936#14183#0" />
-            <element signature="e#13979#14153#0" />
-            <element signature="e#14146#14178#0" />
-            <element signature="e#14307#14432#0" />
-            <element signature="e#14471#14630#0" />
-            <element signature="e#15450#15575#0" />
-            <element signature="e#16654#16795#0" />
+            <element signature="e#7090#7179#0" />
+            <element signature="e#8216#8270#0" />
+            <element signature="e#8327#8414#0" />
+            <element signature="e#8566#9278#0" />
+            <element signature="e#8653#8938#0" />
+            <element signature="e#9345#9444#0" />
+            <element signature="e#9759#9870#0" />
+            <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+            <element signature="e#13772#13826#0" />
+            <element signature="e#13876#13912#0" />
+            <element signature="e#13937#14039#0" />
+            <element signature="e#14056#14140#0" />
           </folding>
         </state>
       </provider>
@@ -492,59 +415,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/FactomdCache.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8064">
           <caret line="224" column="9" lean-forward="true" selection-start-line="219" selection-start-column="3" selection-end-line="224" selection-end-column="9" />
           <folding>
-            <element signature="e#266#367#0" />
-            <element signature="e#747#862#0" />
-            <element signature="e#762#860#0" />
-            <element signature="e#1113#1465#0" />
-            <element signature="e#2000#2024#0" />
-            <element signature="e#6851#7628#0" />
-            <element signature="e#7022#7104#0" />
-            <element signature="e#7490#7569#0" />
-            <element signature="e#7663#7752#0" />
-            <element signature="n#!!block;n#cachePendingEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#7876#12643#0" />
-            <element signature="e#7922#8010#0" />
-            <element signature="e#8221#8300#0" />
-            <element signature="e#8742#8796#0" />
-            <element signature="e#8826#12631#0" />
-            <element signature="e#8853#8940#0" />
-            <element signature="e#9092#9804#0" />
-            <element signature="e#9179#9464#0" />
-            <element signature="e#9871#9970#0" />
-            <element signature="e#10103#12617#0" />
-            <element signature="e#10250#12598#0" />
-            <element signature="e#10285#10396#0" />
-            <element signature="e#10847#11002#0" />
-            <element signature="e#11098#11764#0" />
-            <element signature="e#11232#11703#0" />
-            <element signature="e#11560#11671#0" />
-            <element signature="e#11913#12574#0" />
-            <element signature="e#11952#12201#0" />
-            <element signature="e#12036#12171#0" />
-            <element signature="e#12443#12546#0" />
-            <element signature="n#!!block;n#commitTestEntry#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#12979#13087#0" />
-            <element signature="e#13180#13200#0" />
-            <element signature="e#13597#14088#0" />
-            <element signature="e#13620#13745#0" />
-            <element signature="e#13784#13943#0" />
-            <element signature="n#!!block;n#getEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#14204#14258#0" />
-            <element signature="e#14306#14342#0" />
-            <element signature="e#14367#14469#0" />
-            <element signature="e#14486#14570#0" />
-            <element signature="e#13936#14183#0" />
-            <element signature="e#13979#14153#0" />
-            <element signature="e#14146#14178#0" />
-            <element signature="e#14307#14432#0" />
-            <element signature="e#14471#14630#0" />
-            <element signature="e#15450#15575#0" />
-            <element signature="e#16654#16795#0" />
+            <element signature="e#7090#7179#0" />
+            <element signature="e#8216#8270#0" />
+            <element signature="e#8327#8414#0" />
+            <element signature="e#8566#9278#0" />
+            <element signature="e#8653#8938#0" />
+            <element signature="e#9345#9444#0" />
+            <element signature="e#9759#9870#0" />
+            <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+            <element signature="e#13772#13826#0" />
+            <element signature="e#13876#13912#0" />
+            <element signature="e#13937#14039#0" />
+            <element signature="e#14056#14140#0" />
           </folding>
         </state>
       </provider>
@@ -555,16 +442,6 @@
           <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/factom/src/entry.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
@@ -580,13 +457,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-          <folding>
-            <element signature="e#61#494#0" />
-            <element signature="e#136#467#0" />
-            <element signature="e#176#455#0" />
-            <element signature="e#231#326#0" />
-            <element signature="e#349#439#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -597,74 +467,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/node_modules/flat-cache/cache.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        <state relative-caret-position="619">
+          <caret line="114" column="2" selection-start-line="114" selection-start-column="2" selection-end-line="114" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/factom/src/chain.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/factom/src/entry.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FactomdCache.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="e#7090#7179#0" />
+            <element signature="e#8216#8270#0" />
+            <element signature="e#8327#8414#0" />
+            <element signature="e#8566#9278#0" />
+            <element signature="e#8653#8938#0" />
+            <element signature="e#9345#9444#0" />
+            <element signature="e#9759#9870#0" />
+            <element signature="n#!!block;n#getEntriesFromFactomd#0;n#!!block;n#FactomdCache#0" />
+            <element signature="e#13772#13826#0" />
+            <element signature="e#13876#13912#0" />
+            <element signature="e#13937#14039#0" />
+            <element signature="e#14056#14140#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+        <state relative-caret-position="504">
+          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="863">
-          <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
-          <folding>
-            <element signature="e#266#367#0" />
-            <element signature="e#747#862#0" />
-            <element signature="e#762#860#0" />
-            <element signature="e#1113#1465#0" />
-            <element signature="e#2000#2024#0" />
-            <element signature="e#6851#7628#0" />
-            <element signature="e#7022#7104#0" />
-            <element signature="e#7490#7569#0" />
-            <element signature="e#7663#7752#0" />
-            <element signature="n#!!block;n#cachePendingEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#7876#12643#0" />
-            <element signature="e#7922#8010#0" />
-            <element signature="e#8221#8300#0" />
-            <element signature="e#8742#8796#0" />
-            <element signature="e#8826#12631#0" />
-            <element signature="e#8853#8940#0" />
-            <element signature="e#9092#9804#0" />
-            <element signature="e#9179#9464#0" />
-            <element signature="e#9871#9970#0" />
-            <element signature="e#10103#12617#0" />
-            <element signature="e#10250#12598#0" />
-            <element signature="e#10285#10396#0" />
-            <element signature="e#10847#11002#0" />
-            <element signature="e#11098#11764#0" />
-            <element signature="e#11232#11703#0" />
-            <element signature="e#11560#11671#0" />
-            <element signature="e#11913#12574#0" />
-            <element signature="e#11952#12201#0" />
-            <element signature="e#12036#12171#0" />
-            <element signature="e#12443#12546#0" />
-            <element signature="n#!!block;n#commitTestEntry#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#12979#13087#0" />
-            <element signature="e#13180#13200#0" />
-            <element signature="e#13597#14088#0" />
-            <element signature="e#13620#13745#0" />
-            <element signature="e#13784#13943#0" />
-            <element signature="n#!!block;n#getEntries#0;n#!!block;n#FactomdCache#0" />
-            <element signature="e#14204#14258#0" />
-            <element signature="e#14306#14342#0" />
-            <element signature="e#14367#14469#0" />
-            <element signature="e#14486#14570#0" />
-            <element signature="e#13936#14183#0" />
-            <element signature="e#13979#14153#0" />
-            <element signature="e#14146#14178#0" />
-            <element signature="e#14307#14432#0" />
-            <element signature="e#14471#14630#0" />
-            <element signature="e#15450#15575#0" />
-            <element signature="e#16654#16795#0" />
-          </folding>
+        <state relative-caret-position="396">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>

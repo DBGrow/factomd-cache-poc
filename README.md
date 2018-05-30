@@ -1,30 +1,34 @@
-# factomd-cache-poc
-Proof of concept project for a Factomd API cache and db layer.
+# factomd-cache
+A memory+disk caching layer for the Factomd API.
 
-Can store all entries of a chain so they may be queried through later and returned lightning quick!
+Can store all entries of a chain so they may be queried through and returned later lightning quick!
 
-Can utilize a simple in memory or MongoDB based datastore.
+Will also poll for new pending entries every 10 seconds and store them in the cache.
 
-Will also poll for new(pending) entries every 10 seconds and store them in the database.
+
 
 # Installing
+
+Command line:
+
 ```bash
-npm i factom-mongodbcache
+npm i factomd-cache
 ```
 
+
+
 # Examples
-### Initialization
+
+###  Initialization
 
 ```javascript
 const {FactomdCache} = require('factom-mongodbcache');
 
-//default settings: in memory cache, testnet courtesy node API, local wallet on port 8089
+//default settings: FactomdAPI on localhost:8088, localhost wallet on port 8089
 var factomdCache = new FactomdCache();
 
 //all configuration options
 var factomdCache = new FactomdCache({
-    store: 'MEMORY', //The store type for the cache. Either 'MEMORY' | 'MONGODB'
-    mongouri: 'mongodb://localhost:27017', //standard mongodb connection URI. Defaults to localhost 27017.
     factomdparams:{ //see https://www.npmjs.com/package/factom#instantiate-factomcli
 		factomd: {
         host: '88.200.170.90' //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
@@ -35,11 +39,15 @@ var factomdCache = new FactomdCache({
 
 
 
+
+
 ### Cache a Chain
 
 Before anything meaningful can be done, the chain must be retrieved from Factom and stored!
 
-Performing chain operations before calling `cacheChain` will cause an implicit call to `cacheChain` before the callback completes. You can call `cacheChain` in advance when you know what chains you're application will need to access most often.
+Performing chain operations before calling `cacheChain` will cause an implicit call to `cacheChain` before the desired function's callback completes. You can call `cacheChain` in advance when you know a chain your application will need to access often.
+
+After a chain is cached, new entries will automatically be added on a 10 second basis.
 
 ```javascript
 //Testnet test Chain ID:
@@ -59,6 +67,8 @@ factomdCache.cacheChain(testChainID, function (err, entries) {
 
 
 
+
+
 ### Get All Entries For a Chain
 
 ```javascript
@@ -68,6 +78,8 @@ factomdCache.getAllChainEntries(testChainID, function (err, entries) {
 	console.log('retrieved ' + entries.length + ' entries from the cache!');
 });
 ```
+
+
 
 
 
@@ -84,20 +96,17 @@ factomdCache.getLatestChainEntries(testChainID, 15, function (err, entries) {
 
 
 
-### Get Entries For a Chain By Chronological Index
+
+
+### Get Entries For a Chain By Index Range
+
+You can get entries by chronological index!
 
 ```javascript
-//get entries by index range, from index 0 (inclusice) to index 20 (exclusive)
+//get entries by index range, from index 0 (inclusive) to index 20 (exclusive)
 factomdCache.getRangedChainEntries(testChainID, 0, 20, function (err, entries) {
 	if (err) throw err;
 
 	console.log("success got " + entries.length + ' entries by index range!\n');
 });
 ```
-
-
-
-# MongoDB DB Collection Structure
-This library will create the database 'factomtestnet' on the MongoDB server.
-
-Each chain's entries are separated into it's own collection for convenience and query efficiency.
