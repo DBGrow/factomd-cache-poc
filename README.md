@@ -9,10 +9,20 @@ Will also poll for new pending entries every 10 seconds and store them in the ca
 
 # Installing
 
-Command line:
+#### Command Line
 
 ```bash
 npm i factomd-cache
+```
+
+
+
+#### package.json
+
+```json
+"dependencies": {
+	"factomd-cache": "0.0.1"
+}
 ```
 
 
@@ -29,7 +39,7 @@ var factomdCache = new FactomdCache();
 
 //all configuration options
 var factomdCache = new FactomdCache({
-    factomdparams:{ //see https://www.npmjs.com/package/factom#instantiate-factomcli
+    factomdParams:{ //see https://www.npmjs.com/package/factom#instantiate-factomcli
 		factomd: {
         host: '88.200.170.90' //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
 		}
@@ -43,11 +53,11 @@ var factomdCache = new FactomdCache({
 
 ### Cache a Chain
 
-Before anything meaningful can be done, the chain must be retrieved from Factom and stored!
+Before anything meaningful can be done, the chain must be retrieved from Factom and stored! You can call `cacheChain` in advance when you know a chain your application will need to access often.
 
-Performing chain operations before calling `cacheChain` will cause an implicit call to `cacheChain` before the desired function's callback completes. You can call `cacheChain` in advance when you know a chain your application will need to access often.
+Calling other functions before calling `cacheChain` will cause an implicit call to `cacheChain` before the desired function's callback completes. 
 
-After a chain is cached, new entries will automatically be added on a 10 second basis.
+After a chain is cached, new and currently pending entries will be synced on a 10 second basis.
 
 ```javascript
 //Testnet test Chain ID:
@@ -110,3 +120,44 @@ factomdCache.getRangedChainEntries(testChainID, 0, 20, function (err, entries) {
 	console.log("success got " + entries.length + ' entries by index range!\n');
 });
 ```
+
+
+
+
+
+### Listen For New Entries
+
+You can listen for new entries as they're committed to Factom for your cached chains.
+
+```javascript
+factomdCache.on('new-entries', testChainID, function (newEntries) {
+        console.log('Got ' + newEntries.length + ' new entries in listnener for chain '+testChainID);
+});
+```
+
+
+
+
+
+### Clear A Chain From The Cache
+
+Clear a single chain from the cache by ID
+
+```javascript
+factomdCache.clearChain(testChainID);
+console.log('Cleared chain ' + testChainID);
+```
+
+
+
+
+
+### Clear The Chain Cache
+
+Clear all chains from the cache
+
+```javascript
+factomdCache.clearChainCache();
+console.log('Cleared all chains from the cache');
+```
+

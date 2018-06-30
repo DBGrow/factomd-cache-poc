@@ -9,25 +9,201 @@ const entryHashCache = new Map();
 //ids of chains that the cache is tracking tracking.
 const trackedChainIds = new Set();
 
-//a hybrid disk + memory cache for holding chains, map of ChainID : array of all entries
-const chainCache = require('flat-cache').load('chaincache');
+//a hybrid disk + memory cache for holding chains, map of ChainID : array of all entries in the chain
+const cache = require('flat-cache');
+const chainCache = cache.load('chaincache');
+
+//on startup enumerate all entry hashes from the cached chains
+var allChains = chainCache.all();
+
+for (var key in allChains) {
+    if (allChains.hasOwnProperty(key)) {
+        allChains[key].forEach(function (entry) {
+            entryHashCache.set(entry.hash, 'DBlockConfirmed');
+        });
+    }
+}
+
+console.log(entryHashCache.size + ' entries were already cached');
 
 //you must have a wallet running locally on port 8089 for this to work!
 var cli = new FactomCli();
 
 var pendingEntryLoop;
 
+var pendingEntryInterval = 5000;
+
 function FactomdCache(params) {
 
     if (params) {
         //factomd client params passthrough
-        if (params.factomdparams) {
-            cli = new FactomCli(params.factomdparams);
+        if (params.factomdParams) {
+            cli = new FactomCli(params.factomdParams);
+        }
+
+        if (params.pendingEntryInterval) {
+            if (isNaN(params.pendingEntryInterval)) throw new Error('pendingEntryInterval must be a number');
+            if (params.pendingEntryInterval < 1) throw new Error('pendingEntryInterval must be >= 1');
+            pendingEntryInterval = params.pendingEntryInterval;
         }
     }
 
+    var pendingEntryCallbacks = new Set();
+
+    //expose some event listeners
+    this.on = function (event, chainId, callback) {
+        switch (event) {
+            case 'new-entries': {
+                callback.chainId = chainId;
+                pendingEntryCallbacks.add(callback);
+                break;
+            }
+            default: {
+
+            }
+        }
+    };
+
+    //cache a chain by it's ID.
     function cacheChain(chainId, callback) {
         console.log('Caching Chain ' + chainId + '...\n');
+
+
+        //check if the chain is already cached
+        var cachedChain = chainCache.getKey(chainId);
+        if (cachedChain) {
+
+            //if the chain has been synced, just return what we have now. This handles duplicate calls
+            if (trackedChainIds.has(chainId)) {
+                console.log('Got chain ' + chainId + ' directly from cache');
+                if (callback) callback(undefined, cachedChain);
+                return;
+            }
+
+            // console.log(cachedChain);
+            // console.log(cachedChain[cachedChain.length - 1]);
+            //get entry with context for last cached entry
+            cli.getEntryWithBlockContext(cachedChain[cachedChain.length - 1].hash).then(function (entry) {
+
+                //entry is undefined if entry is pending?
+                if (!entry) {
+                    //the most recent entries are pending
+                    console.log('Chain ' + chainId + ' is up to date! (all new entries were pending)');
+
+                    //mark the chain tracked
+                    trackedChainIds.add(chainId);
+                    initPendingEntryLoop();
+
+                    if (callback) callback(undefined, cachedChain);
+                    return;
+                }
+
+                //get current dblock height
+                cli.factomdApi('heights', {}).then(function (heights) {
+
+                    var lastHeight = entry.blockContext.directoryBlockHeight;
+
+                    // console.log(heights);
+                    var currentHeight = heights.directoryblockheight;
+                    var blockHeights = [];
+
+                    while (lastHeight <= currentHeight) {
+                        blockHeights.push(lastHeight);
+                        lastHeight++;
+                    }
+
+                    console.log('Getting ' + blockHeights.length + ' dblocks...');
+                    getDBlocksFromFactomdAPI(blockHeights, function (err, dblocks) {
+                        // console.log(JSON.stringify(dblocks, undefined, 2));
+
+                        var eBlockKeyMRS = [];
+
+                        //pull out the keymrs of the entry blocks that belong to this chain
+                        dblocks.forEach(function (dblock) {
+                            dblock.dblock.dbentries.forEach(function (dbentry) {
+                                if (dbentry.chainid == chainId) eBlockKeyMRS.push(dbentry.keymr);
+
+                            })
+                        });
+
+                        // console.log(eBlockKeyMRS);
+                        //query all eblocks by keymr
+                        getEBlocksFromFactomdAPI(eBlockKeyMRS, function (err, eblocks) {
+                            // console.log(eblocks);
+
+                            var entryHashes = [];
+                            eblocks.forEach(function (eblock) {
+                                eblock.entrylist.forEach(function (entry) {
+                                    if (!entryHashCache.has(entry.entryhash)) entryHashes.push(entry.entryhash)
+                                });
+                            });
+
+
+                            if (entryHashes.length == 0) {
+                                console.log('Chain ' + chainId + ' is up to date!');
+
+                                //mark the chain tracked
+                                trackedChainIds.add(chainId);
+                                initPendingEntryLoop();
+
+
+                                if (callback) callback(undefined, cachedChain);
+                                return;
+                            }
+
+                            //query all entries by hash
+                            getEntriesFromFactomdAPI(entryHashes, function (err, entries) {
+                                // console.log(entries);
+
+                                //insert new entries into cached chain and callback!
+                                let index = cachedChain[cachedChain.length - 1].index + 1;
+                                entries = entries.map(function (entry) {
+                                    entry = {
+                                        _id: entry.hashHex(), //why...
+                                        chainId: chainId,
+                                        hash: entry.hashHex(),
+                                        content: entry.contentHex,
+                                        extIds: entry.extIdsHex,
+                                        timestamp: entry.timestamp,
+                                        status: 'DBlockConfirmed', //mark this entry as confirmed
+                                        index: index //this entry's index within the chain so it can be reconstructed later
+                                    };
+                                    index++;
+                                    return entry;
+                                });
+
+                                // console.log(entries);
+
+                                cachedChain = cachedChain.concat(entries);
+                                chainCache.setKey(chainId, cachedChain);
+                                chainCache.save();
+
+                                //mark the chain tracked
+                                trackedChainIds.add(chainId);
+
+                                initPendingEntryLoop();
+
+                                if (callback) callback(undefined, cachedChain);
+
+                            });
+
+                        });
+
+                    });
+
+                }).catch(function (err) {
+                    if (callback) callback(err);
+                });
+
+            }).catch(function (err) {
+                if (callback) callback(err);
+            });
+
+
+            return;
+        }
+
+
 
         //get every entry of the chain so we can store it in our local DB
         console.time("Get All Entries");
@@ -79,12 +255,16 @@ function FactomdCache(params) {
 
 
     //poll for and cache pending entries for the chains we're tracking
-    function cachePendingEntries() {
+    function cachePendingEntries(callback) {
         cli.factomdApi('pending-entries', {}).then(function (pendingEntries) {
             if (pendingEntries.length == 0) {
                 //No pending entries were found!
+                // console.log("No new entries found");
+                if (callback) callback(undefined, []);
                 return;
             }
+
+            // console.log(pendingEntries);
 
             //only handle entries with hashes we have not already processed
             const preFilterCount = pendingEntries.length;
@@ -93,10 +273,17 @@ function FactomdCache(params) {
             });
 
 
-            if (pendingEntries.length == 0) return; //ignore
+            if (pendingEntries.length == 0) {
+                // console.log("No new entries found");
+
+                if (callback) callback(undefined, []);
+                return;
+            } //ignore
 
             // console.log(preFilterCount - pendingEntries.length + ' pending entries were already cached or were not on a tracked chain.');
-            console.log('Found ' + pendingEntries.length + ' New Entries to cache!');
+            console.log('Found ' + pendingEntries.length + ' New Entries to cache!: ' + pendingEntries.map(function (entry) {
+                return entry.entryhash;
+            }));
 
             //get all the pending entries from Factom by hash, preserving order
             getEntriesFromFactomdAPI(pendingEntries.map(function (entry) {
@@ -111,16 +298,21 @@ function FactomdCache(params) {
 
                 //sort the pending entries by chain ID
                 rawEntries.forEach(function (rawEntry) {
-                    const mongoEntry = {
-                        _id: rawEntry.hashHex(), //oh my god why is this one inconsistent with the others?
+
+                    let finalEntry = {
+                        _id: rawEntry.hashHex(), //why...
+                        chainId: chainId,
+                        hash: rawEntry.hashHex(),
                         content: rawEntry.contentHex,
                         extIds: rawEntry.extIdsHex,
-                        status: 'TransactionACK'
+                        timestamp: rawEntry.timestamp,
+                        status: 'TransactionAck', //mark this entry as confirmed
+                        // index: index //this entry's index within the chain so it can be reconstructed later
                     };
 
                     //initialize or append, here we are making a big assumption that the API returns pending entries in chrono order
-                    if (!chainEntries[rawEntry.chainIdHex]) chainEntries[rawEntry.chainIdHex] = [mongoEntry];
-                    else chainEntries[rawEntry.chainIdHex].push(mongoEntry);
+                    if (!chainEntries[rawEntry.chainIdHex]) chainEntries[rawEntry.chainIdHex] = [finalEntry];
+                    else chainEntries[rawEntry.chainIdHex].push(finalEntry);
                 });
 
                 //for each of the chains with new entries, we need to get the latest known index of an entry in the
@@ -132,6 +324,8 @@ function FactomdCache(params) {
                     getLatestChainEntryIndex(chainId, function (err, index) {
                         if (err) {
                             console.error(err);
+
+                            if (callback) callback(err);
                             return;
                         }
 
@@ -151,6 +345,11 @@ function FactomdCache(params) {
                             chainCache.save();
                             chainEntries[chainId].forEach(function (entry) {
                                 entryHashCache.set(entry._id, entry.status)
+                            });
+
+                            //call callback for new entries
+                            pendingEntryCallbacks.forEach(function (cb) {
+                                cb(chainEntries[chainId])
                             });
                         }
                         //otherwise just ignore
@@ -214,7 +413,39 @@ function FactomdCache(params) {
             console.error(err);
             if (callback) callback(err);
         })
-    }
+    };
+
+    function getDBlocksFromFactomdAPI(heights, callback) {
+        var tasks = [];
+        heights.forEach(function (height) {
+            tasks.push(cli.factomdApi('dblock-by-height', {height: height}))
+        });
+
+        u.processArray(tasks, function (item) {
+            return item;
+        }).then(function (result) {
+            if (callback) callback(undefined, result);
+        }, function (err) {
+            console.error(err);
+            if (callback) callback(err);
+        })
+    };
+
+    function getEBlocksFromFactomdAPI(keyMRs, callback) {
+        var tasks = [];
+        keyMRs.forEach(function (mr) {
+            tasks.push(cli.factomdApi('entry-block', {keymr: mr}))
+        });
+
+        u.processArray(tasks, function (item) {
+            return item;
+        }).then(function (result) {
+            if (callback) callback(undefined, result);
+        }, function (err) {
+            console.error(err);
+            if (callback) callback(err);
+        })
+    };
 
     function getAllChainEntries(chainId, callback) {
 
@@ -255,6 +486,11 @@ function FactomdCache(params) {
             return;
         }
 
+        if (count < 0) {
+            if (callback) callback(new Error("count must be > 0"));
+            return;
+        }
+
 
         var cachedEntries = chainCache.getKey(chainId);
         if (cachedEntries) {
@@ -277,16 +513,48 @@ function FactomdCache(params) {
 
     function initPendingEntryLoop() {
         if (!pendingEntryLoop) {
+
             pendingEntryLoop = setInterval(function () {
                 cachePendingEntries();
-            }, 10000);
+            }, pendingEntryInterval);
             cachePendingEntries();
         }
     }
 
+    //remove a chain from the cache
+    function clearChain(chainId) {
+
+        trackedChainIds.delete(chainId);
+        var cachedChain = chainCache.getKey(chainId);
+
+        if (cachedChain) {
+            //clear all entries from the hash cache
+            cachedChain.forEach(function (entry) {
+                entryHashCache.delete(entry.hash);
+            });
+            chainCache.removeKey(chainId);
+        }
+
+        //remove pending entry callbacks
+        pendingEntryCallbacks = new Set(Array.from(pendingEntryCallbacks).filter(function (callback) {
+            return callback.chainId == chainId;
+        }));
+    }
+
+    this.clearChain = clearChain;
+
+    //remove all chains from the cache
+    function clearChainCache() {
+        trackedChainIds.clear();
+        entryHashCache.clear();
+        pendingEntryCallbacks.clear();
+        cache.clearCacheById('chaincache');
+    }
+
+    this.clearChainCache = clearChainCache
+
     return this;
 }
-
 
 module.exports = {
     FactomdCache: FactomdCache

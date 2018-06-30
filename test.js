@@ -20,21 +20,20 @@ var cli = new FactomCli({
 //Testnet test Chain ID:
 const testChainID = 'f1be007d4b82e7093f2234efd1beb429bc5e0311e9ae98dcd580616a2046a6b3';
 
-
 //EXECUTE TESTS
 var factomdCache = new FactomdCache({
-    factomdparams: {
+    factomdParams: {
         factomd: {
             host: '88.200.170.90' //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
         }
     }
 });
 
-//cache a test chain
 factomdCache.cacheChain(testChainID, function (err, entries) {
     if (err) throw err;
 
     console.log('cached ' + entries.length + ' entries!\n');
+
 
     //get the index of the latest cached entry
     factomdCache.getLatestChainEntry(testChainID, function (err, entry) {
@@ -55,6 +54,17 @@ factomdCache.cacheChain(testChainID, function (err, entries) {
         if (err) throw err;
 
         console.log('retrieved all entries! (' + entries.length + ' total)\n');
+
+        //evaluate the cached chain for consistency
+        if (entries[0].index != 0) console.error('Entries 0 index was not 0!');
+        if (entries[entries.length - 1].index != entries.length - 1) console.error('Entries max index inconsistent! ' + entries[entries.length - 1].index)
+
+        //check that the index is increasing and there are no duplicates
+        let previous;
+        entries.forEach(function (entry) {
+            if (previous && entry.index != previous.index + 1) console.error(entry.index + ' not one greater than ' + previous.index);
+            previous = entry;
+        });
     });
 
     //get the most recent 15 entries for the test chain
@@ -71,10 +81,21 @@ factomdCache.cacheChain(testChainID, function (err, entries) {
         console.log("success got " + entries.length + ' entries by index range!\n');
     });
 
-    //start writing new entries to the chain to test if this lib works!
-    setInterval(function () {
+    //write a new entry to the chain to test if we get new entries as they come in
+    setTimeout(function () {
         commitTestEntry();
-    }, 20000)
+    }, 20000);
+
+    //listen for new entries that come in
+    factomdCache.on('new-entries', testChainID, function (newEntries) {
+        console.log('Got ' + newEntries.length + ' new entries in ON listnener');
+    });
+
+    //clear the test chain from the cache
+    setTimeout(function () {
+        factomdCache.clearChain(testChainID);
+        console.log('Cleared chain ' + testChainID);
+    }, 50000);
 });
 
 //test functions
@@ -88,22 +109,6 @@ function commitTestEntry() {
     cli.addEntry(entry, ES)
         .then(function (entry) {
             console.log('Created test chain entry with hash ' + entry.entryHash + '\n');
-        }).catch(console.error);
-}
-
-function commitTestChain() {
-
-    const entry = Entry.builder()
-        .extId(crypto.randomBytes(16).toString(), 'utf8')
-        .content(crypto.randomBytes(100).toString(), 'utf8')
-        .build();
-
-    var chain = new Chain(entry);
-
-    cli.addChain(chain, ES)
-        .then(function (chain) {
-            console.log('Created test chain ');
-            console.log(chain)
         }).catch(console.error);
 }
 
