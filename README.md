@@ -21,7 +21,7 @@ npm i factomd-cache
 
 ```json
 "dependencies": {
-	"factomd-cache": "0.0.1"
+	"factomd-cache": "0.1.1"
 }
 ```
 

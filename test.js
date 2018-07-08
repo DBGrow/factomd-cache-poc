@@ -96,6 +96,8 @@ factomdCache.cacheChain(testChainID, function (err, entries) {
         factomdCache.clearChain(testChainID);
         console.log('Cleared chain ' + testChainID);
     }, 50000);
+}, function (progress) {
+    console.log("Sync Progress: " + JSON.stringify(progress));
 });
 
 //test functions
