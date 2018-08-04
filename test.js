@@ -13,7 +13,8 @@ const ES = 'Es3k4L7La1g7CY5zVLer21H3JFkXgCBCBx8eSM2q9hLbevbuoL6a';
 //you must have a wallet running locally on port 8089 for this to work!
 var cli = new FactomCli({
     factomd: {
-        host: '88.200.170.90' //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
+        host: 'localhost', //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
+        port: 8088 //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
     }
 });
 
@@ -24,7 +25,8 @@ const testChainID = 'f1be007d4b82e7093f2234efd1beb429bc5e0311e9ae98dcd580616a204
 var factomdCache = new FactomdCache({
     factomdParams: {
         factomd: {
-            host: '88.200.170.90' //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
+            host: 'localhost', //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
+            port: 8088 //ilzheev (De Facto)#4781 on Discord's testnet courtesy node
         }
     }
 });
@@ -39,7 +41,7 @@ factomdCache.cacheChain(testChainID, function (err, entries) {
     factomdCache.getLatestChainEntry(testChainID, function (err, entry) {
         if (err) throw err;
 
-        console.log("the latest entry in the test chain was:\n" + JSON.stringify(entry, undefined, 2) + '\n');
+        console.log("the latest entry in the test chain was:\n" + JSON.stringify(entry._id, undefined, 2) + '\n');
     });
 
     //get the index of the latest cached entry

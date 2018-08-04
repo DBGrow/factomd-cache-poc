@@ -19,12 +19,12 @@ var allChains = chainCache.all();
 for (var key in allChains) {
     if (allChains.hasOwnProperty(key)) {
         allChains[key].forEach(function (entry) {
-            entryHashCache.set(entry.hash, 'DBlockConfirmed');
+            entryHashCache.set(entry._id, 'DBlockConfirmed');
         });
     }
 }
 
-console.log(entryHashCache.size + ' entries were already cached');
+// console.log(entryHashCache.size + ' entries were already cached');
 
 //you must have a wallet running locally on port 8089 for this to work!
 var cli = new FactomCli();
@@ -73,7 +73,7 @@ function FactomdCache(params) {
 
         var cachedChain = chainCache.getKey(chainId);
         if (cachedChain) {
-            console.log("chain was already in cache");
+            // console.log("chain was already in cache");
 
             //if the chain has been synced, just return what we have now. This handles duplicate calls
             if (trackedChainIds.has(chainId)) {
@@ -82,10 +82,10 @@ function FactomdCache(params) {
             }
 
             // console.log(cachedChain);
-            // console.log(cachedChain[cachedChain.length - 1]);
+            console.log(Buffer.from(cachedChain[cachedChain.length - 1].hash).toString('hex'));
             //get entry with context for last cached entry
 
-            cli.getEntryWithBlockContext(cachedChain[cachedChain.length - 1].hash).then(function (entry) {
+            cli.getEntryWithBlockContext(Buffer.from(cachedChain[cachedChain.length - 1].hash).toString('hex')).then(function (entry) {
 
 
                 //entry is undefined if entry is pending?
@@ -162,7 +162,7 @@ function FactomdCache(params) {
                                     entry = {
                                         _id: entry.hashHex(), //why...
                                         chainId: entry.chainId,
-                                        hash: entry.hash,
+                                        hash: entry.hash(),
                                         content: entry.content,
                                         extIds: entry.extIds,
                                         timestamp: entry.timestamp,
@@ -234,7 +234,7 @@ function FactomdCache(params) {
                 entry = {
                     _id: entry.hashHex(), //why...
                     chainId: entry.chainId,
-                    hash: entry.hash,
+                    hash: entry.hash(),
                     content: entry.content,
                     extIds: entry.extIds,
                     timestamp: entry.timestamp,
@@ -271,6 +271,12 @@ function FactomdCache(params) {
 
     this.cacheChain = cacheChain;
 
+
+    function isChainCached(chainId) {
+        return chainCache.has(chainId);
+    }
+
+    this.isChainCached = isChainCached;
 
     //poll for and cache pending entries for the chains we're tracking
     function cachePendingEntries(callback) {
@@ -319,7 +325,7 @@ function FactomdCache(params) {
                     let finalEntry = {
                         _id: rawEntry.hashHex(), //why...
                         chainId: rawEntry.chainId,
-                        hash: rawEntry.hash,
+                        hash: rawEntry.hashHex(),
                         content: rawEntry.content,
                         extIds: rawEntry.extIds,
                         timestamp: rawEntry.timestamp,
