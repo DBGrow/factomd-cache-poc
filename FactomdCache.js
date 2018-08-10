@@ -1,4 +1,3 @@
-const u = require('./u');
 
 const {FactomCli} = require('factom');
 const {Entry} = require('factom/src/entry');
@@ -99,6 +98,8 @@ function FactomdCache(params) {
             });
 
             //insert in memory, overwriting previous chain entries
+            // console.log('CACHING TOCACHE:')
+            // console.log(cachedEntries[0]);
             chainCache.setKey(chainId, cachedEntries); //store all entries in the map
             chainCache.save(); //save changes
 
@@ -112,21 +113,19 @@ function FactomdCache(params) {
             return entries;
         }
 
-
         //transform the cache entries into factom.js datastructures
         let finalChain = cachedChain.map(function (entry) {
             return Entry.builder()
-                .chainId(chainId, 'utf8')
+                .chainId(chainId, 'hex')
                 .extIds(entry.extIds, 'utf8')
                 .content(entry.content, 'utf8')
                 .build();
         });
 
-
         //if the chain has been synced, just return what we have now. This handles duplicate calls
-        if (trackedChainIds.has(chainId)) {
+        /*if (trackedChainIds.has(chainId)) {
             return finalChain;
-        }
+        }*/
 
         //get entry with context for last cached entry
         let entry = await cli.getEntryWithBlockContext(cachedChain[cachedChain.length - 1].hash);
@@ -134,17 +133,16 @@ function FactomdCache(params) {
         //entry is undefined if entry is pending?
         if (!entry) {
             //the most recent entries are pending
-            console.log('Chain ' + chainId + ' is up to date! (all new entries were pending)');
+            // console.log('Chain ' + chainId + ' is up to date! (all new entries were pending)');
 
             //mark the chain tracked
             trackedChainIds.add(chainId);
             initPendingEntryLoop();
-
             return finalChain;
         }
 
         //get current dblock height
-        let heights = await  cli.factomdApi('heights', {});
+        let heights = await cli.factomdApi('heights', {});
 
         var lastHeight = entry.blockContext.directoryBlockHeight;
 
@@ -158,9 +156,10 @@ function FactomdCache(params) {
         }
 
         let dblocks = await getDBlocksFromFactomdAPI(blockHeights);
-        // console.log(JSON.stringify(dblocks, undefined, 2));
 
-        var eBlockKeyMRS = [];
+        // console.log('DBLOCKS LENGTH: ' + dblocks.length);
+
+        let eBlockKeyMRS = [];
 
         //pull out the keymrs of the entry blocks that belong to this chain
         dblocks.forEach(function (dblock) {
@@ -170,9 +169,13 @@ function FactomdCache(params) {
             });
         });
 
+
+        // console.log('EBLOCKKMR LENGTH: ' + eBlockKeyMRS.length);
+
         //query all eblocks by keymr
         let eblocks = await getEBlocksFromFactomdAPI(eBlockKeyMRS);
-        // console.log(eblocks);
+
+        // console.log('EBLOCK LENGTH: ' + eblocks.length);
 
         var entryHashes = [];
         eblocks.forEach(function (eblock) {
@@ -185,7 +188,6 @@ function FactomdCache(params) {
             //mark the chain tracked
             trackedChainIds.add(chainId);
             initPendingEntryLoop();
-
             return finalChain;
         }
 
@@ -227,14 +229,13 @@ function FactomdCache(params) {
         if (callback) callback(undefined, cachedChain);
 
         return finalChain;
-
     }
 
     this.cacheChain = cacheChain;
 
 
     function isChainCached(chainId) {
-        return chainCache.has(chainId);
+        return chainCache.getKey(chainId) !== undefined;
     }
 
     this.isChainCached = isChainCached;
@@ -347,8 +348,6 @@ function FactomdCache(params) {
         }
     }
 
-    this.getLatestChainEntryIndex = getLatestChainEntryIndex;
-
     async function getLatestChainEntry(chainId) {
 
         var cachedEntries = chainCache.getKey(chainId);
@@ -368,7 +367,7 @@ function FactomdCache(params) {
 
     this.getLatestChainEntry = getLatestChainEntry;
 
-    async function getEntriesFromFactomdAPI(hashes, callback, progressCallback) {
+    async function getEntriesFromFactomdAPI(hashes) {
         var tasks = [];
         hashes.forEach(function (hash) {
             tasks.push(cli.getEntry(hash))
@@ -377,17 +376,16 @@ function FactomdCache(params) {
         return await Promise.all(tasks);
     }
 
-    async function getDBlocksFromFactomdAPI(heights, callback, progressCallback) {
+    async function getDBlocksFromFactomdAPI(heights) {
         var tasks = [];
         heights.forEach(function (height) {
             tasks.push(cli.factomdApi('dblock-by-height', {height: height}))
         });
 
         return await Promise.all(tasks);
-
     }
 
-    async function getEBlocksFromFactomdAPI(keyMRs, callback, progressCallback) {
+    async function getEBlocksFromFactomdAPI(keyMRs) {
         var tasks = [];
         keyMRs.forEach(function (mr) {
             tasks.push(cli.factomdApi('entry-block', {keymr: mr}))
@@ -396,7 +394,6 @@ function FactomdCache(params) {
     }
 
     async function getAllChainEntries(chainId, callback) {
-
         var cachedEntries = chainCache.getKey(chainId);
         if (cachedEntries) {
             return cachedEntries.map(function (entry) {
@@ -433,15 +430,9 @@ function FactomdCache(params) {
     this.getRangedChainEntries = getRangedChainEntries;
 
     async function getLatestChainEntries(chainId, count) {
-
         if (!count) count = 25;
-        if (isNaN(count)) {
-            throw new Error("count must be a number, not type " + typeof count + ' (' + count + ')');
-        }
 
-        if (count < 0) {
-            throw new Error("count must be > 0");
-        }
+        if (isNaN(count)) throw new Error('count must be a number');
 
         var cachedEntries = chainCache.getKey(chainId);
         if (cachedEntries) {
@@ -496,16 +487,6 @@ function FactomdCache(params) {
     }
 
     this.clearChain = clearChain;
-
-    //remove all chains from the cache
-    function clearChainCache() {
-        trackedChainIds.clear();
-        entryHashCache.clear();
-        pendingEntryCallbacks.clear();
-        cache.clearCacheById('chaincache');
-    }
-
-    this.clearChainCache = clearChainCache;
 
     this.close = function () {
         clearInterval(pendingEntryLoop)
