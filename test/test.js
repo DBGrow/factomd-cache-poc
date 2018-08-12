@@ -8,6 +8,10 @@ var cli = new FactomCli({
     }
 });
 
+async function test() {
+    let dblocks = await getDBlocksFromFactomdAPI(blockHeights);
+}
+
 const {FactomdCache} = require('../FactomdCache');
 var factomdCache = new FactomdCache({
     factomdParams: {
@@ -25,6 +29,7 @@ const ES = 'Es3k4L7La1g7CY5zVLer21H3JFkXgCBCBx8eSM2q9hLbevbuoL6a';
 describe('Entry/Chain Cache', function () {
 
     it('Cache Chain  (From API/Scratch)', async function () {
+        this.timeout(10000);
         let entries = await factomdCache.cacheChain(testChainID);
 
         assert(entries, 'Entries were not returned from the cache');
